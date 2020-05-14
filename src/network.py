@@ -4,8 +4,6 @@ class Network:
     def __init__(self, activation, output_activation, error, layer_dims, problem_data, epochs, learning_rate):
         self.W = []
         self.B = []
-        self.activation = activation
-        self.output_activation = output_activation
         self.error = error
         self.layer_dims = layer_dims
         self.L = len(layer_dims)
@@ -13,6 +11,7 @@ class Network:
         self.epochs = epochs
         self.learning_rate = learning_rate
         self.test_cost = 100
+        self.activations = [activation] * (self.L - 2) + [output_activation]
 
     def _initialize_parameters(self):
         for l in range(1, self.L):
@@ -30,7 +29,7 @@ class Network:
         a_cache.append(X)
         for l in range(self.L - 1):
             z = self.W[l].dot(A_prev) + self.B[l]
-            A = self.activation.func(z)
+            A = self.activations[l].func(z)
             z_cache.append(z)
             a_cache.append(A)
             A_prev = A
@@ -44,7 +43,7 @@ class Network:
         dW = []
         m = len(Y)
         for l in reversed(range(self.L - 1)):
-            dZ = dA_prev * self.activation.der(z_cache[l])
+            dZ = dA_prev * self.activations[l].der(z_cache[l])
             A_prev = a_cache[l]
             dW.append(1./m * np.dot(dZ, A_prev.T))
             dB.append(1./m * np.sum(dZ, axis=1, keepdims=True))
