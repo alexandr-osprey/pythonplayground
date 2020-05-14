@@ -45,7 +45,8 @@ def get_output_activation():
 
 def __get_activation(name):
     tanh = (ac.tanh, ac.tanh_der)
-    functions = { 'tanh': tanh }
+    relu = (ac.relu, ac.relu_der)
+    functions = { 'tanh': tanh, 'relu': relu }
     ft = functions.get(name, tanh)
     function = FunctionContainer()
     function.func, function.der = ft

@@ -9,3 +9,13 @@ def tanh_der(Z):
     output = tanh(Z)
     der = 1 - output * output
     return der
+
+def relu(Z):
+    positive = (Z > 0).astype(int)
+    output = positive * Z
+    return output
+
+def relu_der(Z):
+    m = (Z > 0).astype(int)
+    der = (1 * m).reshape(Z.shape)
+    return der
