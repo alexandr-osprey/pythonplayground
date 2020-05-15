@@ -19,3 +19,13 @@ def relu_der(Z):
     m = (Z > 0).astype(int)
     der = (1 * m).reshape(Z.shape)
     return der
+
+def sigmoid(Z):
+    m = 1 + np.exp(-Z)
+    output = 1 / m
+    return output
+
+def sigmoid_der(Z):
+    m = sigmoid(Z)
+    output = m * (1 - m)
+    return output

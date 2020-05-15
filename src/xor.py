@@ -34,7 +34,17 @@ def _split_data(points, labels, test_part):
     test = points[:, :part], labels[:, :part]
     return train, test
 
+def get_wrong_points(test_data, actual_output):
+    x, y = [], []
+    tl = test_data['labels']
 
+    for p in range(len(tl)):
+        if tl[p] * actual_output[p] < 0:
+            x.append(test_data['x'][p])
+            y.append(test_data['y'][p])
+    
+    return x, y
+    
 # def normalize_rows(self, x):
 #     norm = np.linalg.norm(x, axis=1, keepdims=True)
 #     normalized = x / norm
