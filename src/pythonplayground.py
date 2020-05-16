@@ -3,6 +3,7 @@ import numpy as np
 import math as math
 import matplotlib.pyplot as plt
 import xor
+import circle
 import activation as ac
 import error as er
 from network import Network
@@ -58,8 +59,9 @@ def __get_activation(name):
 def get_data_generator():
     name = sys.argv[1]
     xor_problem = (xor.generate_data, xor.get_wrong_points)
-    problems = { 'xor': xor_problem }
-    problem = problems.get(name, xor_problem)
+    cicrle_problem = (circle.generate_data, circle.get_wrong_points)
+    problems = { 'xor': xor_problem, 'circle': cicrle_problem }
+    problem = problems.get(name, xor_problem) 
     return problem
 
 def get_layer_dims():
